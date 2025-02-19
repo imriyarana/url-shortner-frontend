@@ -1,15 +1,17 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 import SignupImg from "../Images/steel-heart.jpg";
 
 const Signup = () => {
-    const [username, setUsername] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [loading, setLoading] = useState(false);
-
+    const navigate = useNavigate();
     const submitHandler = async (e) => {
         e.preventDefault();
         setError("");
@@ -18,13 +20,15 @@ const Signup = () => {
 
         try {
             const response = await axios.post("http://localhost:8080/user/signup", {
-                username,
+                name,
                 email,
                 password
             }, { withCredentials: true });
 
-            if (response.data.message === "Signup successful") {
-                setSuccess("Signup successful!");
+            if (response.data.message === "Signup successful");
+             {
+                setSuccess("Signup successful");
+                navigate("/");
             }
         } catch (err) {
             setError(err.response?.data?.message || "Signup failed. Try again.");
@@ -44,8 +48,9 @@ const Signup = () => {
                 {success && <p className="text-green-500 text-center">{success}</p>}
                 <form onSubmit={submitHandler}>
                     <div className="mb-4">
-                        <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username 𐙚</label>
-                        <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm" />
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Username 𐙚</label>
+                        <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required
+                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm" />
                     </div>
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email 𐙚</label>
