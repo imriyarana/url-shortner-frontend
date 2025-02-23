@@ -22,7 +22,7 @@ const Login = () => {
                 email,
                 password
             }, { withCredentials: true });
-
+            
             if (response.data.message === "Login successful") {
                 setSuccess("Login successful!");
                 navigate("/");

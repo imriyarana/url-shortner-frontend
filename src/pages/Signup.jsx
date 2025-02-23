@@ -24,9 +24,10 @@ const Signup = () => {
                 email,
                 password
             }, { withCredentials: true });
-
-            if (response.data.message === "Signup successful");
+           
+            if (response.data.message === "Signup successful")
              {
+                
                 setSuccess("Signup successful");
                 navigate("/");
             }
