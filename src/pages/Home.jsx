@@ -1,11 +1,14 @@
 import { useState} from 'react';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [longUrl, setLongUrl] = useState('');
-  const [shortUrl, setShortUrl] = useState('');
-  const [error, setError] = useState('');
+  const [longUrl, setLongUrl] = useState("");
+  const [shortUrl, setShortUrl] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const axiosInstance = axios.create({
     baseURL: "http://localhost:8080",
@@ -13,10 +16,10 @@ const Home = () => {
   });
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
     try {
-      const response = await axiosInstance.post('/url', { 
+      const response = await axiosInstance.post("/url", { 
         url: longUrl,
       });
   
@@ -24,18 +27,57 @@ const Home = () => {
         setShortUrl(`${window.location.origin}/url/${response.data.id}`);
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       
-      setError(error.response?.data?.error || 'Something went wrong');
+      setError(error.response?.data?.error || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
+  
+  const handleLogout = async () => {
+    try {
+      await axiosInstance.post("/user/logout");
+      localStorage.removeItem("token"); 
+      navigate("/login"); 
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   return (
+   
+    <div className="min-h-screen bg-gray-50">   
+    <nav className="bg-white shadow-sm">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex justify-between h-16 items-center">
+        <div className="text-xl font-bold text-gray-800">
+          URL Shortener
+        </div>
+        <div className="flex space-x-4">
+          <button 
+            onClick={() => navigate("/login")}
+            className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded-md hover:bg-gray-100">
+            Login
+          </button>
+          <button 
+            onClick={() => navigate("/signup")}
+            className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded-md hover:bg-gray-100">
+            Sign Up
+          </button>
+          <button 
+            onClick={() => { handleLogout();
+              navigate("/")}}
+            className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded-md hover:bg-gray-100">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-center mb-2">URL Shortener ✦⫘⫘⫘ˎˊ˗</h1>
+        <h1 className="text-3xl font-bold text-center mb-2">✦⫘URL Shortener⫘⫘ˎˊ˗</h1>
         <p className="text-gray-600 text-center mb-6">Make your long URLs short and shareable</p>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -63,18 +105,15 @@ const Home = () => {
                   type="text"
                  value={shortUrl}
                  readOnly
-                  className="w-full p-2 bg-gray-100 outline-none"
-               />
-               <button
-                  onClick={() => navigator.clipboard.writeText(shortUrl)}
-                  className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">
-                 Copy
-               </button>
+                  className="w-full p-2 bg-gray-100 outline-none"/>
+               <button onClick={() => navigator.clipboard.writeText(shortUrl)}
+                  className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300">Copy</button>
              </div>
             </div>
           )}
          </form>
        </div>
+     </div>
      </div>
   );
 };

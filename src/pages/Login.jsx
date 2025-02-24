@@ -1,8 +1,9 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import loginImg from "../Images/butterfly.jpg";
 import { Link } from "react-router-dom";
+
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -22,7 +23,7 @@ const Login = () => {
                 email,
                 password
             }, { withCredentials: true });
-            
+
             if (response.data.message === "Login successful") {
                 setSuccess("Login successful!");
                 navigate("/");
@@ -49,22 +50,22 @@ const Login = () => {
                     <div className="mb-4">
                         <label htmlFor="email"
                             className="block text-sm font-medium text-gray-700">Email 𐙚</label>
-                        <input type="email" 
-                        id="email" 
-                        value={email}
-                        onChange={(e)=> setEmail(e.target.value)}
-                        required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm" />
+                        <input type="email"
+                            id="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm" />
                     </div>
                     <div className="mb-4">
                         <label htmlFor="password"
                             className="block text-sm font-medium text-gray-700">Pawswordᯓᡣ𐭩</label>
                         <input type="password"
-                        id="email" 
-                        value={password}
-                        onChange={(e)=> setPassword(e.target.value)}
-                        required
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm" />
+                            id="email"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none sm:text-sm" />
                     </div>
                     <button type="submit" className="w-full py-2 px-4 bg-slate-500 hover:bg-slate-700 text-whit font-semibold rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2
     focus:ring-slate-500" disabled={loading}>{loading ? "Login you in ..." : "Loginᥫ᭡"}</button>
