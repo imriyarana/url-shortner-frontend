@@ -36,14 +36,14 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 font-title">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
                 <div className="flex justify-center mb-4">
                     <img src={loginImg}
                         alt="Url-shortner"
                         className="h-12 w-auto object-contain" />
                 </div>
-                <h2 className="text-2x1 font-semibold text-center mb-6">Login meow :3</h2>
+                <h2 className="text-2x1 font-semibold text-center mb-6">Login meow:3</h2>
                 {error && <p className="text-red-500 text-center">{error}</p>}
                 {success && <p className="text-green-500 text-center">{success}</p>}
                 <form onSubmit={submitHandler}>

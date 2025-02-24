@@ -47,13 +47,11 @@ const Home = () => {
 
   return (
    
-    <div className="min-h-screen bg-gray-50">   
+    <div className="min-h-screen bg-gray-50 font-title">   
     <nav className="bg-white shadow-sm">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex justify-between h-16 items-center">
-        <div className="text-xl font-bold text-gray-800">
-          URL Shortener
-        </div>
+        <div className="text-xl font-bold text-gray-800">SHORTIFY</div>
         <div className="flex space-x-4">
           <button 
             onClick={() => navigate("/login")}
@@ -77,7 +75,7 @@ const Home = () => {
   </nav>
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-2xl bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-center mb-2">✦⫘URL Shortener⫘⫘ˎˊ˗</h1>
+        <h1 className="text-3xl font-bold text-center mb-2">✦⫘Shortify⫘ˎˊ˗</h1>
         <p className="text-gray-600 text-center mb-6">Make your long URLs short and shareable</p>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
