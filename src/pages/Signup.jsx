@@ -19,7 +19,7 @@ const Signup = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post("https://shortify-35xp.onrender.com/user/signup", {
+            const response = await axios.post("https://shortify-35xp.onrender.com/signup", {
                 name,
                 email,
                 password
@@ -27,7 +27,6 @@ const Signup = () => {
            
             if (response.data.message === "Signup successful")
              {
-                
                 setSuccess("Signup successful");
                 navigate("/");
             }

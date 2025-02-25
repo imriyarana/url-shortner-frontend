@@ -19,7 +19,7 @@ const Login = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post("https://shortify-35xp.onrender.com/user/login", {
+            const response = await axios.post("https://shortify-35xp.onrender.com/login", {
                 email,
                 password
             }, { withCredentials: true });
