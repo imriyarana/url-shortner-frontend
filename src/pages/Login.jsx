@@ -61,7 +61,7 @@ const Login = () => {
                         <label htmlFor="password"
                             className="block text-sm font-medium text-gray-700">Pawswordᯓᡣ𐭩</label>
                         <input type="password"
-                            id="email"
+                            id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
