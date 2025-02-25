@@ -24,7 +24,7 @@ const Home = () => {
       });
   
       if (response.data.id) {
-        setShortUrl(`${window.location.origin}/url/${response.data.id}`);
+        setShortUrl(`https://shortify-35xp.onrender.com/url/${response.data.id}`);
       }
     } catch (error) {
       console.error("Error:", error);
