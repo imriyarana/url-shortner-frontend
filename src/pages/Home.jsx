@@ -11,7 +11,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const axiosInstance = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: "https://shortify-35xp.onrender.com",
     withCredentials: true,
   });
   const handleSubmit = async (e) => {

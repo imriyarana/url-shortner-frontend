@@ -19,7 +19,7 @@ const Signup = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post("http://localhost:8080/user/signup", {
+            const response = await axios.post("https://shortify-35xp.onrender.com/user/signup", {
                 name,
                 email,
                 password
