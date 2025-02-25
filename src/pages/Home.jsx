@@ -8,8 +8,6 @@ const Home = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
-
   const axiosInstance = axios.create({
     baseURL: "https://shortify-35xp.onrender.com",
     withCredentials: true,
@@ -35,6 +33,9 @@ const Home = () => {
     }
   };
   
+  const navigate = useNavigate();
+  const isLoggedIn = !!localStorage.getItem("token");
+
   const handleLogout = async () => {
     try {
       await axiosInstance.post("/user/logout");
@@ -53,6 +54,7 @@ const Home = () => {
       <div className="flex justify-between h-16 items-center">
         <div className="text-xl font-bold text-gray-800">SHORTIFY</div>
         <div className="flex space-x-4">
+          {!isLoggedIn?(<>
           <button 
             onClick={() => navigate("/login")}
             className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded-md hover:bg-gray-100">
@@ -63,12 +65,12 @@ const Home = () => {
             className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded-md hover:bg-gray-100">
             Sign Up
           </button>
-          <button 
+          </>):( <button 
             onClick={() => { handleLogout();
               navigate("/")}}
             className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded-md hover:bg-gray-100">
             Logout
-          </button>
+          </button>)}
         </div>
       </div>
     </div>
