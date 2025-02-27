@@ -1,4 +1,4 @@
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -7,6 +7,8 @@ const Home = () => {
   const [shortUrl, setShortUrl] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const navigate = useNavigate();
 
   const axiosInstance = axios.create({
     baseURL: "https://shortify-35xp.onrender.com",
@@ -33,14 +35,16 @@ const Home = () => {
     }
   };
   
-  const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem("token");
+    useEffect(()=>{
+  setIsLoggedIn(!!localStorage.getItem("token"));
+},[]);
 
   const handleLogout = async () => {
     try {
       await axiosInstance.post("/user/logout");
       localStorage.removeItem("token"); 
-      navigate("/login"); 
+      setIsLoggedIn(false);
+      navigate("/"); 
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -66,8 +70,7 @@ const Home = () => {
             Sign Up
           </button>
           </>):( <button 
-            onClick={() => { handleLogout();
-              navigate("/")}}
+            onClick={ handleLogout}
             className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded-md hover:bg-gray-100">
             Logout
           </button>)}
