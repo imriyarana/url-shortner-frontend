@@ -7,13 +7,27 @@ const Home = () => {
   const [shortUrl, setShortUrl] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   const axiosInstance = axios.create({
     baseURL: "https://shortify-35xp.onrender.com",
     withCredentials: true,
   });
+
+  useEffect(()=>{
+    const checkAuth = async()=>{
+      try{
+        const response = await axiosInstance.get("user/status");
+        setIsLoggedIn(response.data.isLoggedIn);
+     }catch{
+         setIsLoggedIn(false);
+      }
+     };
+     checkAuth();
+   },[]);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -35,14 +49,10 @@ const Home = () => {
     }
   };
   
-    useEffect(()=>{
-  setIsLoggedIn(!!localStorage.getItem("token"));
-},[]);
 
   const handleLogout = async () => {
     try {
-      await axiosInstance.post("/user/logout");
-      localStorage.removeItem("token"); 
+      await axiosInstance.post("/user/logout"); 
       setIsLoggedIn(false);
       navigate("/"); 
     } catch (error) {
